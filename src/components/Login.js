@@ -56,7 +56,7 @@ const Login = () =>{
         <button className={email && password ? "active": ""}
                 disabled={email && password ? false : true}
                 onClick={() => handleLogin()}
-        >Login</button>
+        ><i className="fa-solid fa-sync fa-spin"></i>Login</button>
         
          <div className="back">
        <i className="fa-solid fa-angles-left"></i> Go back
