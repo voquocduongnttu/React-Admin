@@ -5,7 +5,9 @@ import Header from './components/Header';
 import TableUsers from './components/TableUsers';
 import Container from 'react-bootstrap/Container';
 import { ToastContainer } from 'react-toastify';
-
+import Home from './components/Home';
+import { Route, Routes } from 'react-router-dom';
+import Login from './components/Login';
 
 function App() {
 
@@ -15,8 +17,11 @@ function App() {
     <div className='app-container'>
       <Container>
         <Header />
-        
-        <TableUsers />
+        <Routes>
+          <Route path="/" element={<Home/>}/>
+          <Route path="/users" element={<TableUsers/>}/>
+          <Route path="/login" element={<Login/>}/>
+        </Routes>
       </Container>
      
     </div>
