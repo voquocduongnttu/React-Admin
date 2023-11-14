@@ -1,12 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { loginApi } from "../services/UserService";
 import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 
 
 const Login = () =>{
+
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState("");
     const [password,setPassword] = useState("");
     const [isShowPassword, setIsShowPassword] = useState(false);
+    const [loadingAPI, setLoadingAPI] = useState(false);
+
+    useEffect(() => {
+
+        let token = localStorage.getItem("token");
+        if (token){
+            navigate("/");
+
+        }
+
+
+    },[])
+
+
     const handleLogin = async () =>{
         alert("me")
         if(!email || !password ){
@@ -14,20 +32,21 @@ const Login = () =>{
     
         return;
         }
-        
+        setLoadingAPI(true);
        let res = await loginApi(email, password);
        console.log('>>>check :',res)
        if (res && res.token){
         localStorage.setItem("token",res.token)
+        navigate("/");
        } else{
 
         if(res && res.status === 400){
             toast.error(res.data.error);
         }
        }
-       
+       setLoadingAPI(false);
     }
-
+    
     return(<>
     <div className="login-container col-sm-4 col-12" >
         <div className="title">Log In</div>
@@ -52,11 +71,13 @@ const Login = () =>{
             onClick={() => setIsShowPassword(!isShowPassword)}
         ></i>  
 </div>
-
-        <button className={email && password ? "active": ""}
+<button className={email && password ? "active": ""}
                 disabled={email && password ? false : true}
                 onClick={() => handleLogin()}
-        ><i className="fa-solid fa-sync fa-spin"></i>Login</button>
+        >
+        {loadingAPI && <i className="fa-solid fa-sync fa-spin"></i>}
+        &nbsp;Login
+        </button>
         
          <div className="back">
        <i className="fa-solid fa-angles-left"></i> Go back
