@@ -24,7 +24,7 @@ const Header = (props) =>{
         <>
     <Navbar expand="lg" className="bg-body-tertiary">
         <Container>
-            <Navbar.Brand href="#home">
+            <Navbar.Brand href="/">
                     <img
                         src={logoApp}
                         width='30'
