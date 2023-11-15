@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { loginApi } from "../services/UserService";
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
-
+import { useContext } from 'react';
+import { UserContext } from '../context/UserContext';
 
 const Login = () =>{
-
+    const { loginContext } = useContext(UserContext)
     const navigate = useNavigate();
 
     const [email, setEmail] = useState("");
@@ -13,17 +14,10 @@ const Login = () =>{
     const [isShowPassword, setIsShowPassword] = useState(false);
     const [loadingAPI, setLoadingAPI] = useState(false);
 
-    useEffect(() => {
-
-        let token = localStorage.getItem("token");
-        if (token){
-            navigate("/");
-
-        }
-
-
-    },[])
-
+ 
+    const hanldeGoBack = () => {
+        navigate('/');
+    }
 
     const handleLogin = async () =>{
         alert("me")
@@ -36,7 +30,7 @@ const Login = () =>{
        let res = await loginApi(email, password);
        console.log('>>>check :',res)
        if (res && res.token){
-        localStorage.setItem("token",res.token)
+        loginContext(email, res.token);
         navigate("/");
        } else{
 
@@ -80,7 +74,9 @@ const Login = () =>{
         </button>
         
          <div className="back">
-       <i className="fa-solid fa-angles-left"></i> Go back
+       <i className="fa-solid fa-angles-left"></i> 
+       
+       <span onClick={() => hanldeGoBack()}>&nbsp;Go back</span>
     </div>
     
     </div>
