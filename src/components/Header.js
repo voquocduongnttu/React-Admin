@@ -11,8 +11,6 @@ const Header = (props) =>{
 
     const { logout, user } = useContext(UserContext)
     
-    
-
     const navigate = useNavigate();
     const hanldeLogout = () =>{
         logout();
@@ -36,18 +34,16 @@ const Header = (props) =>{
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-            { (user && user.auth || window.location.pathname === '/') && 
+            {(user && user.auth || window.location.pathname === '/') && 
                 <>
                     <Nav className="me-auto">
                         <NavLink to='/' className="nav-link">Home</NavLink>
-                         <NavLink NavLink to='/users' className="nav-link">Manage Users</NavLink>
+                        <NavLink NavLink to='/users' className="nav-link">Manage Users</NavLink>
                     </Nav>
                     <Nav>
                         {user && user.email && <span className='nav-link'>Welcome {user.email} </span>}
-
                         <NavDropdown title="Setting" id="basic-nav-dropdown">
-                             {user && user.auth === true
-                   
+                            {user && user.auth === true
                                 ?<NavDropdown.Item onClick={() => hanldeLogout()}>Logout</NavDropdown.Item>
                                 :<NavLink to='/login' className="dropdown-item">Login</NavLink>
                             }

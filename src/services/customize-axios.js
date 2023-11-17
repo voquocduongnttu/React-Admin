@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 const instance = axios.create({
   baseURL: 'https://reqres.in',
 
@@ -17,9 +16,9 @@ instance.interceptors.response.use(function (response) {
     let res =  {};
     if (error.response) {
     //Request made and server responded
-    res.data = error.response.data;
-    res.status = error.response.status;
-    res.headers = error.response.headers;
+      res.data = error.response.data;
+      res.status = error.response.status;
+      res.headers = error.response.headers;
   } else if (error.request){
 
     console.log(error.request);

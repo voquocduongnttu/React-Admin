@@ -14,11 +14,18 @@ input.form-control.form-search{
 
 
 .add-new{
-    display: flex;
+    // display: flex;
     justify-content: space-between;
     align-items: center;
     .group-btns{
         display: flex;
         gap: 10px;
     }
+  }
+  .customize-table{
+    width: inherit;
+    overflow-x: auto;
+  }
+  .pagination{
+    justify-content: center;
   }

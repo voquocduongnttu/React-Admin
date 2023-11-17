@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import Header from './components/Header';
 import { useContext, useEffect } from 'react';
 import { UserContext } from './context/UserContext';
+
 function App() {
 const { user, loginContext } = useContext(UserContext)
 
@@ -20,8 +21,9 @@ const { user, loginContext } = useContext(UserContext)
   return (
     <>
     <div className='app-container'>
+      <Header />
       <Container>
-        <Header />
+        
         <AppRoutes/>
       </Container>
      

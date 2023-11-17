@@ -2,6 +2,7 @@
 import { UserContext } from "../context/UserContext";
 import { useContext } from "react";
 import { Alert } from "react-bootstrap";
+
 const PrivateRoute = (props) =>{
 
     const { user } = useContext(UserContext)
@@ -13,6 +14,7 @@ const PrivateRoute = (props) =>{
                 </Alert>
             </>
         }
+       
     return(
         <>
             {props.children}

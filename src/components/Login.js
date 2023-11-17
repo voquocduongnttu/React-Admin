@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { loginApi } from "../services/UserService";
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
@@ -12,23 +12,23 @@ const Login = () =>{
     const [email, setEmail] = useState("");
     const [password,setPassword] = useState("");
     const [isShowPassword, setIsShowPassword] = useState(false);
-    const [loadingAPI, setLoadingAPI] = useState(false);
+    const [loadingAPI, setLoadingAPI] = useState(false); 
 
- 
     const hanldeGoBack = () => {
-        navigate('/');
+        navigate("/");
     }
 
     const handleLogin = async () =>{
-        alert("me")
+        // alert("me")
         if(!email || !password ){
         toast.error("Email/Password is required!");
     
         return;
         }
         setLoadingAPI(true);
-       let res = await loginApi(email, password);
-       console.log('>>>check :',res)
+
+       let res = await loginApi(email.trim(), password);
+    //    console.log('>>>check :',res)
        if (res && res.token){
         loginContext(email, res.token);
         navigate("/");
@@ -41,31 +41,39 @@ const Login = () =>{
        setLoadingAPI(false);
     }
     
+    const handlePressEnter = (event)=>{
+        if(event && event.key === 'Enter'){
+            handleLogin();
+        }
+    }
     return(<>
     <div className="login-container col-sm-4 col-12" >
         <div className="title">Log In</div>
-        <div className="text" >Email or username</div>
+        <div className="text" >Email or username ( eve.holt@reqres.in )</div>
         
         <input 
         type="text" 
         placeholder="Email or username..."
         value={email}
         onChange={(event) => setEmail(event.target.value)}
+        onKeyDown={(event) => handlePressEnter(event)}
 
         />
     <div className="input-2">
         <input 
         type={isShowPassword === true ? "text" :"password"} 
+
         placeholder="Password..." 
         value={[password]}
         onChange={(event) => setPassword(event.target.value)}
+        onKeyDown={(event) => handlePressEnter(event)}
 
         />
         <i className={isShowPassword === true ? "fa-solid fa-eye-slash" : "fa-solid fa-eye"}
             onClick={() => setIsShowPassword(!isShowPassword)}
         ></i>  
-</div>
-<button className={email && password ? "active": ""}
+    </div>
+        <button className={email && password ? "active": ""}
                 disabled={email && password ? false : true}
                 onClick={() => handleLogin()}
         >
@@ -75,14 +83,10 @@ const Login = () =>{
         
          <div className="back">
        <i className="fa-solid fa-angles-left"></i> 
-       
        <span onClick={() => hanldeGoBack()}>&nbsp;Go back</span>
     </div>
     
     </div>
-   
-    
-    
     </>)
 }
 export default Login;
